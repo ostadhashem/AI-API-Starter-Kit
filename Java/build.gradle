@@ -1,0 +1,44 @@
+plugins {
+    id 'org.springframework.boot' version '3.1.5'
+    id 'io.spring.dependency-management' version '1.1.3'
+    id 'java'
+}
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-json'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    compileOnly 'org.projectlombok:lombok:1.18.28' // Use the latest version
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+}
+
+springBoot {
+    mainClass = 'com.example.aiapistarter.Application'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+jar {
+    archiveBaseName.set("ai-api-starter") // Set your desired artifact name here
+}
+tasks.named("bootJar") {
+    archiveBaseName.set("ai-api-starter")     // Ensure the bootJar uses the same name
+    enabled = true  // This will generate the runnable JAR with dependencies
+}
+
+tasks.named("jar") {
+    enabled = false // Disables the plain JAR to prevent "-plain.jar" files
+}
